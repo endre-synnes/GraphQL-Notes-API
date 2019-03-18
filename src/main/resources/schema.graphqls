@@ -1,0 +1,31 @@
+type Query {
+    # Get Note by Author
+    notes(author: String) : [Note]
+}
+
+type Mutation {
+    # Create Note
+    createNote(note : InputNote): String
+    # Delete note
+    # deleteNote(id: String!): String
+}
+
+type Note {
+    # ID
+    id: String,
+    # Text
+    text: String,
+    # Author
+    author: String,
+    # Priority 1 = low 5 = highest
+    priority: Int
+}
+
+input InputNote {
+    # Text
+    text: String,
+    # Author
+    author: String,
+    # Priority 1 = low 5 = highest
+    priority: Int
+}

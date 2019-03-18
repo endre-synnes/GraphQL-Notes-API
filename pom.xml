@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.synend</groupId>
+    <artifactId>graphql</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>template</name>
+    <description>Template project for Spring Boot Applications</description>
+
+    <properties>
+
+        <spring-fox-swagger2.version>2.9.2</spring-fox-swagger2.version>
+
+        <!-- GraphQL -->
+        <version.graphql-spring>4.2.0</version.graphql-spring>
+    </properties>
+
+    <dependencies>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- Excluding starter json because of conflict with graph ql -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-json</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Kotlin -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
+        <!-- SPRINGFOX & SWAGGER -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${spring-fox-swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${spring-fox-swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-spring-web</artifactId>
+            <version>${spring-fox-swagger2.version}</version>
+        </dependency>
+
+        <!-- Database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Cache -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient-cache</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--  GraphQL -->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>${version.graphql-spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>${version.graphql-spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>voyager-spring-boot-starter</artifactId>
+            <version>${version.graphql-spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>template</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                        <plugin>jpa</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v10.15.1</nodeVersion>
+                            <npmVersion>6.7.0</npmVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>Install Node Dependencies silently</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install --no-progress</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Build Frontend Application</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Copy frontend build to target</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/webapp/build</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
